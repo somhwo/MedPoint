@@ -22,7 +22,7 @@ if($query)
 <html lang="en">
 
 	<head>
-		<title>User Registration - HDMIS</title>
+		<title>User Registration - MedPoint</title>
 		
 		<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -56,7 +56,7 @@ return true;
 		<div class="row">
 			<div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
 				<div class="logo margin-top-30">
-				<a href="../index.php"><h2>HMS | Patient Registration</h2></a>
+				<a href="../index.php"><h2>MedPoint | Patient Registration</h2></a>
 				</div>
 				<!-- start: REGISTER BOX -->
 				<div class="box-register">
@@ -134,7 +134,7 @@ return true;
 					</form>
 
 					<div class="copyright">
-						&copy; <span class="current-year"></span><span class="text-bold text-uppercase"> HMS</span>. <span>All rights reserved</span>
+						&copy; <span class="current-year"></span><span class="text-bold text-uppercase"> MedPoint</span>. <span>All rights reserved</span>
 					</div>
 
 				</div>

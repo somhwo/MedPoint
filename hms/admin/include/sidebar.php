@@ -116,7 +116,7 @@
 											<i class="ti-files"></i>
 										</div>
 										<div class="item-inner">
-											<span class="title"> Conatctus Queries </span><i class="icon-arrow"></i>
+											<span class="title"> Contact us Queries </span><i class="icon-arrow"></i>
 										</div>
 									</div>
 								</a>

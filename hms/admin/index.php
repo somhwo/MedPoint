@@ -79,13 +79,13 @@ $_SESSION['errmsg']="Invalid username or password";
 									Login <i class="fa fa-arrow-circle-right"></i>
 								</button>
 							</div>
-							<a href="../../index.php">Bacto Home Page</a>
+							<a href="../../index.php">Back to Home Page</a>
 							
 						</fieldset>
 					</form>
 
 					<div class="copyright">
-						<span class="text-bold text-uppercase">Hospital Management System</span>
+						<span class="text-bold text-uppercase">MedPoint: Doctor Appointment Booking System</span>
 					</div>
 			
 				</div>

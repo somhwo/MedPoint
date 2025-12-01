@@ -43,9 +43,7 @@ echo "<script>window.location.href ='index.php'</script>";
                         <ul>
                             <li><a href="#">Home</a></li>
                             <li><a href="#services">Services</a></li>
-                            <li><a href="#about_us">About Us</a></li>
                             <li><a href="#gallery">Gallery</a></li>
-                            <li><a href="#contact_us">Contact Us</a></li>
                             <li><a href="#logins">Logins</a></li>  
                         </ul>
                     </div>
@@ -77,7 +75,7 @@ echo "<script>window.location.href ='index.php'</script>";
                     <img class="d-block w-100" src="assets/images/slider/slider_4.jpg" alt="Second slide">
                     <div class="carousel-cover"></div>
                     <div class="carousel-caption vdg-cur d-none d-md-block">
-                        <h5 class="animated bounceInDown">Health Data Information and Management System</h5>
+                        <h5 class="animated bounceInDown"</h5>
             
                          
                     
@@ -88,7 +86,7 @@ echo "<script>window.location.href ='index.php'</script>";
                     <img class="d-block w-100" src="assets/images/slider/slider_5.jpg" alt="Third slide">
                       <div class="carousel-cover"></div>
                     <div class="carousel-caption vdg-cur d-none d-md-block">
-                        <h5 class="animated bounceInDown">Health Data Information and Management System</h5>
+                        <h5 class="animated bounceInDown"></h5>
             
                          
                     
@@ -112,57 +110,48 @@ echo "<script>window.location.href ='index.php'</script>";
     
   <!--  ************************* Logins ************************** -->
     
-    
-     <section id="logins" class="our-blog container-fluid">
-        <div class="container">
-        <div class="inner-title">
+    <section id="logins" class="our-blog container-fluid">
+  <div class="container">
+    <div class="inner-title">
+      <h2>Logins</h2>
+      <br>
+      <br>
+    </div>
+    <div class="row no-margin justify-content-center">
+      <div class="col-sm-4 blog-smk">
+        <div class="blog-single blog-center">
+          <div class="blog-single-det">
+            <h6>Patient Login</h6>
+            <a href="hms/user-login.php" target="_blank">
+              <button class="btn btn-success login-btn">Click Here</button>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 blog-smk">
+        <div class="blog-single blog-center">
+          <div class="blog-single-det">
+            <h6>Doctor Login</h6>
+            <a href="hms/doctor" target="_blank">
+              <button class="btn btn-success login-btn">Click Here</button>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 blog-smk">
+        <div class="blog-single blog-center">
+          <div class="blog-single-det">
+            <h6>Admin Login</h6>
+            <a href="hms/admin" target="_blank">
+              <button class="btn btn-success login-btn">Click Here</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                <h2>Logins</h2>
-            </div>
-            <div class="col-sm-12 blog-cont">
-                <div class="row no-margin">
-                    <div class="col-sm-4 blog-smk">
-                        <div class="blog-single">
-
-                                <img src="assets/images/patient4.jpg" alt="">
-
-                            <div class="blog-single-det">
-                                <h6>Patient Login</h6>
-                                <a href="hms/user-login.php" target="_blank">
-                                    <button class="btn btn-success btn-sm">Click Here</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 blog-smk">
-                        <div class="blog-single">
-
-                                <img src="assets/images/doctor2.jpg" alt="">
-
-                            <div class="blog-single-det">
-                                <h6>Doctors login</h6>
-                                <a href="hms/doctor" target="_blank">
-                                    <button class="btn btn-success btn-sm">Click Here</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-sm-4 blog-smk">
-                        <div class="blog-single">
-
-                                <img src="assets/images/admin2.jpg" alt="">
-
-                            <div class="blog-single-det">
-                                <h6>Admin Login</h6>
-                    
-                                <a href="hms/admin" target="_blank">
-                                    <button class="btn btn-success btn-sm">Click Here</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
                     
                     
 
@@ -187,8 +176,8 @@ echo "<script>window.location.href ='index.php'</script>";
         <div class="container">
             <div class="inner-title">
 
-                <h2>Our Services</h2>
-                <p>Take a look at some of our key features</p>
+                <h2>Services</h2>
+                <p></p>
             </div>
 
             <div class="row">
@@ -202,14 +191,14 @@ echo "<script>window.location.href ='index.php'</script>";
                 <div class="col-lg-4 col-md-6">
                     <div class="single-key">
                         <i class="fas fa-ribbon"></i>
-                        <h5>Orthopaedic</h5>
+                        <h5>Orthopedics</h5>
                     </div>
                 </div>
 
                 <div class="col-lg-4 col-md-6">
                     <div class="single-key">
                        <i class="fab fa-monero"></i>
-                        <h5>Neurologist</h5>
+                        <h5>Neurology</h5>
                     </div>
                 </div>
 
@@ -232,7 +221,7 @@ echo "<script>window.location.href ='index.php'</script>";
                 <div class="col-lg-4 col-md-6">
                     <div class="single-key">
                         <i class="far fa-thumbs-up"></i>
-                        <h5>High Quality treatments</h5>
+                        <h5>High Quality Treatments</h5>
 
                     </div>
                 </div>
@@ -249,25 +238,7 @@ echo "<script>window.location.href ='index.php'</script>";
     
     
   
-    
-    <!--  ************************* About Us Starts Here ************************** -->
-        
-    <section id="about_us" class="about-us">
-        <div class="row no-margin">
-            <div class="col-sm-6 image-bg no-padding">
-                
-            </div>
-            <div class="col-sm-6 abut-yoiu">
-                <h3>About Our System</h3>
-<?php
-$ret=mysqli_query($con,"select * from tblpage where PageType='aboutus' ");
-while ($row=mysqli_fetch_array($ret)) {
-?>
 
-    <p><?php  echo $row['PageDescription'];?>.</p><?php } ?>
-            </div>
-        </div>
-    </section>    
     
     
             <!--  ************************* Gallery Starts Here ************************** -->
@@ -275,8 +246,8 @@ while ($row=mysqli_fetch_array($ret)) {
            <div class="container">
               <div class="inner-title">
 
-                <h2>Our Gallery</h2>
-                <p>View Our Gallery</p>
+                <h2>Gallery</h2>
+                <p></p>
             </div>
               <div class="row">
                 
@@ -285,8 +256,8 @@ while ($row=mysqli_fetch_array($ret)) {
             <button class="btn btn-default filter-button" data-filter="all">All</button>
             <button class="btn btn-default filter-button" data-filter="hdpe">Dental</button>
             <button class="btn btn-default filter-button" data-filter="sprinkle">Cardiology</button>
-            <button class="btn btn-default filter-button" data-filter="spray"> Neurology</button>
-            <button class="btn btn-default filter-button" data-filter="irrigation">Laboratry</button>
+            <button class="btn btn-default filter-button" data-filter="spray">Neurology</button>
+            <button class="btn btn-default filter-button" data-filter="irrigation">Laboratory</button>
         </div>
         <br/>
 
@@ -326,96 +297,13 @@ while ($row=mysqli_fetch_array($ret)) {
         <!-- ######## Gallery End ####### -->
     
     
-     <!--  ************************* Contact Us Starts Here ************************** -->
     
-    <section id="contact_us" class="contact-us-single">
-        <div class="row no-margin">
-
-            <div  class="col-sm-12 cop-ck">
-                <form method="post">
-                <h2 >Contact Form</h2>
-                    <div class="row cf-ro">
-                        <div  class="col-sm-3"><label>Enter Name :</label></div>
-                        <div class="col-sm-8"><input type="text" placeholder="Enter Name" name="fullname" class="form-control input-sm" required ></div>
-                    </div>
-                    <div  class="row cf-ro">
-                        <div  class="col-sm-3"><label>Email Address :</label></div>
-                        <div class="col-sm-8"><input type="text" name="emailid" placeholder="Enter Email Address" class="form-control input-sm"  required></div>
-                    </div>
-                     <div  class="row cf-ro">
-                        <div  class="col-sm-3"><label>Mobile Number:</label></div>
-                        <div class="col-sm-8"><input type="text" name="mobileno" placeholder="Enter Mobile Number" class="form-control input-sm" required ></div>
-                    </div>
-                     <div  class="row cf-ro">
-                        <div  class="col-sm-3"><label>Enter  Message:</label></div>
-                        <div class="col-sm-8">
-                          <textarea rows="5" placeholder="Enter Your Message" class="form-control input-sm" name="description" required></textarea>
-                        </div>
-                    </div>
-                     <div  class="row cf-ro">
-                        <div  class="col-sm-3"><label></label></div>
-                        <div class="col-sm-8">
-                         <button class="btn btn-success btn-sm" type="submit" name="submit">Send Message</button>
-                        </div>
-                </div>
-            </form>
-            </div>
-     
-        </div>
-    </section>
-    
-    
-    
-    
-    
-    <!-- ################# Footer Starts Here#######################--->
-
-
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-       
-                <div class="col-md-6 col-sm-12">
-                    <h2>Useful Links</h2>
-                    <ul class="list-unstyled link-list">
-                        <li><a ui-sref="about" href="#about">About us</a><i class="fa fa-angle-right"></i></li>
-                        <li><a ui-sref="portfolio" href="#services">Services</a><i class="fa fa-angle-right"></i></li>
-                        <li><a ui-sref="products" href="#logins">Logins</a><i class="fa fa-angle-right"></i></li>
-                        <li><a ui-sref="gallery" href="#gallery">Gallery</a><i class="fa fa-angle-right"></i></li>
-                        <li><a ui-sref="contact" href="#contact">Contact us</a><i class="fa fa-angle-right"></i></li>
-                    </ul>
-                </div>
-                <div class="col-md-6 col-sm-12 map-img">
-                    <h2>Contact Us</h2>
-                    <address class="md-margin-bottom-40">
-
-<?php
-$ret=mysqli_query($con,"select * from tblpage where PageType='contactus' ");
-while ($row=mysqli_fetch_array($ret)) {
-?>
-
-
-                        <?php  echo $row['PageDescription'];?> <br>
-                        Phone: <?php  echo $row['MobileNumber'];?> <br>
-                        Email: <a href="mailto:<?php  echo $row['Email'];?>" class=""><?php  echo $row['Email'];?></a><br>
-                        Timing: <?php  echo $row['OpenningTime'];?>
-                    </address>
-
-        <?php } ?>
-
-
-
-
-
-                </div>
-            </div>
-        </div>
         
 
     </footer>
     <div class="copy">
             <div class="container">
-        <center>Health Data Information and Management System</center> 
+        <center>MedPoint: Doctor Appointment Booking System</center> 
                 
      
             </div>
