@@ -37,7 +37,7 @@ echo "<script>window.location.href='user-login.php'</script>";
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>User-Login</title>
+		<title>Patient Login</title>
 		
 		<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -63,8 +63,9 @@ echo "<script>window.location.href='user-login.php'</script>";
 							<legend>
 								Sign in to your account
 							</legend>
+							<br> <br>
 							<p>
-								Please enter your name and password to log in.<br />
+								Please enter your email and password to log in.<br />
 								<span style="color:red;"><?php echo $_SESSION['errmsg']; ?><?php echo $_SESSION['errmsg']="";?></span>
 							</p>
 							<div class="form-group">
@@ -77,7 +78,8 @@ echo "<script>window.location.href='user-login.php'</script>";
 									<input type="password" class="form-control" name="password" placeholder="Password" required>
 									<i class="fa fa-lock"></i>
 									 </span><a href="forgot-password.php">
-									Forgot Password ?
+										<br> <br>
+									Forgot Password?
 								</a>
 							</div>
 							<div class="form-actions">

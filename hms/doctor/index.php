@@ -63,8 +63,9 @@ echo "<script>window.location.href='index.php'</script>";
 							<legend>
 								Sign in to your account
 							</legend>
+							<br> <br>
 							<p>
-								Please enter your name and password to log in.<br />
+								Please enter your email and password to log in.<br />
 								<span style="color:red;"><?php echo $_SESSION['errmsg']; ?><?php echo $_SESSION['errmsg']="";?></span>
 							</p>
 							<div class="form-group">
@@ -78,7 +79,8 @@ echo "<script>window.location.href='index.php'</script>";
 									<i class="fa fa-lock"></i>
 									 </span>
 									 <a href="forgot-password.php">
-									Forgot Password ?
+									<br> <br>
+									Forgot Password?
 								</a>
 							</div>
 							<div class="form-actions">
