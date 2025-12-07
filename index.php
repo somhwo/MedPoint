@@ -1,6 +1,6 @@
 
 <?php
-include_once('hms/include/config.php');
+include_once('medpoint/include/config.php');
 if(isset($_POST['submit']))
 {
 $name=$_POST['fullname'];
@@ -48,7 +48,7 @@ echo "<script>window.location.href ='index.php'</script>";
                         </ul>
                     </div>
                     <div class="col-sm-2 d-none d-lg-block appoint">
-                        <a class="btn btn-success" href="hms/user-login.php">Book an Appointment</a>
+                        <a class="btn btn-success" href="medpoint/user-login.php">Book an Appointment</a>
                     </div>
                 </div>
 
@@ -122,7 +122,7 @@ echo "<script>window.location.href ='index.php'</script>";
         <div class="blog-single blog-center">
           <div class="blog-single-det">
             <h6>Patient Login</h6>
-            <a href="hms/user-login.php" target="_blank">
+            <a href="medpoint/user-login.php" target="_blank">
               <button class="btn btn-success login-btn">Click Here</button>
             </a>
           </div>
@@ -132,7 +132,7 @@ echo "<script>window.location.href ='index.php'</script>";
         <div class="blog-single blog-center">
           <div class="blog-single-det">
             <h6>Doctor Login</h6>
-            <a href="hms/doctor" target="_blank">
+            <a href="medpoint/doctor" target="_blank">
               <button class="btn btn-success login-btn">Click Here</button>
             </a>
           </div>
@@ -142,7 +142,7 @@ echo "<script>window.location.href ='index.php'</script>";
         <div class="blog-single blog-center">
           <div class="blog-single-det">
             <h6>Admin Login</h6>
-            <a href="hms/admin" target="_blank">
+            <a href="medpoint/admin" target="_blank">
               <button class="btn btn-success login-btn">Click Here</button>
             </a>
           </div>
