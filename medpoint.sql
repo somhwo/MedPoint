@@ -237,7 +237,7 @@ with the goal of reducing the time and resources currently required for such tas
 A significant part of the operation of any hospital involves the acquisition, management and timely retrieval of great volumes of information. 
 This information typically involves; patient personal information and medical history, staff information, room and ward scheduling, staff scheduling, 
 operating theater scheduling and various facilities waiting lists. All of this information must be managed in an efficient and cost wise fashion so that an
-institution\'s resources may be effectively utilized HMS will automate the management of the hospital making it more efficient and error free. It aims at
+institution\'s resources may be effectively utilized MedPoint will automate the management of the hospital making it more efficient and error free. It aims at
 standardizing data, consolidating data ensuring data integrity and reducing inconsistencies.&nbsp;</font></li></ul>', NULL, NULL, '2020-05-20 07:21:52', NULL),
 (2, 'contactus', 'Contact Details', 'Cebu City,\r\nABC, XYZ, Philippines', 'info@gmail.com', 123567890, '2020-05-20 07:24:07', '9 am To 8 Pm');
 
