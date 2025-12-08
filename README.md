@@ -1,1 +1,1 @@
-MedPoint : A Dcotor Appointment Manage System
+MedPoint : Doctor Appointment Booking System
