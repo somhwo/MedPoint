@@ -3,183 +3,505 @@ session_start();
 error_reporting(0);
 include('include/config.php');
 if(strlen($_SESSION['id']==0)) {
- header('location:logout.php');
-  } else{
-
-
-
+    header('location:logout.php');
+} else {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Admin | Manage Unread Queries</title>
-		
-		<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="vendor/themify-icons/themify-icons.min.css">
-		<link href="vendor/animate.css/animate.min.css" rel="stylesheet" media="screen">
-		<link href="vendor/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet" media="screen">
-		<link href="vendor/switchery/switchery.min.css" rel="stylesheet" media="screen">
-		<link href="vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" media="screen">
-		<link href="vendor/select2/select2.min.css" rel="stylesheet" media="screen">
-		<link href="vendor/bootstrap-datepicker/bootstrap-datepicker3.standalone.min.css" rel="stylesheet" media="screen">
-		<link href="vendor/bootstrap-timepicker/bootstrap-timepicker.min.css" rel="stylesheet" media="screen">
-		<link rel="stylesheet" href="assets/css/styles.css">
-		<link rel="stylesheet" href="assets/css/plugins.css">
-		<link rel="stylesheet" href="assets/css/themes/theme-1.css" id="skin_color" />
-	</head>
-	<body>
-		<div id="app">		
-<?php include('include/sidebar.php');?>
-			<div class="app-content">
-				
-						<?php include('include/header.php');?>
-					
-				<!-- end: TOP NAVBAR -->
-				<div class="main-content" >
-					<div class="wrap-content container" id="container">
-						<!-- start: PAGE TITLE -->
-						<section id="page-title">
-							<div class="row">
-								<div class="col-sm-8">
-									<h1 class="mainTitle">Admin | Manage Unread Queries</h1>
-																	</div>
-								<ol class="breadcrumb">
-									<li>
-										<span>Admin</span>
-									</li>
-									<li class="active">
-										<span>Unread Queries</span>
-									</li>
-								</ol>
-							</div>
-						</section>
-						<!-- end: PAGE TITLE -->
-						<!-- start: BASIC EXAMPLE -->
-						<div class="container-fluid container-fullw bg-white">
-						
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Manage Unread Queries</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendor/themify-icons/themify-icons.min.css">
+    <link rel="stylesheet" href="vendor/animate.css/animate.min.css">
+    <link rel="stylesheet" href="vendor/perfect-scrollbar/perfect-scrollbar.min.css">
+    <link rel="stylesheet" href="vendor/switchery/switchery.min.css">
+    
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/plugins.css">
+    <link rel="stylesheet" href="assets/css/themes/theme-1.css" id="skin_color">
 
-									<div class="row">
-								<div class="col-md-12">
-									<h5 class="over-title margin-bottom-15">Manage <span class="text-bold">Unread Queries</span></h5>
-									<table class="table table-hover" id="sample-table-1">
-										<thead>
-											<tr>
-												<th class="center">#</th>
-												<th>Name</th>
-												<th class="hidden-xs">Email</th>
-												<th>Contact No. </th>
-												<th>Message </th>
-												<th>Query Date</th>
-												<th>Action</th>
-												
-											</tr>
-										</thead>
-										<tbody>
-<?php
-$sql=mysqli_query($con,"select * from tblcontactus where IsRead is null");
-$cnt=1;
-while($row=mysqli_fetch_array($sql))
-{
-?>
+    <style>
+        /* ============================================
+           CSS VARIABLES
+        ============================================ */
+        :root {
+            --primary-blue: #2563eb;
+            --primary-dark: #1e40af;
+            --primary-light: #3b82f6;
+            --light-blue-bg: #eff6ff;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 12px rgba(37, 99, 235, 0.1);
+            --transition: all 0.3s ease;
+        }
 
-											<tr>
-												<td class="center"><?php echo $cnt;?>.</td>
-												<td class="hidden-xs"><?php echo $row['fullname'];?></td>
-												<td><?php echo $row['email'];?></td>
-												<td><?php echo $row['contactno'];?></td>
-												<td><?php echo $row['message'];?></td>
-												<td><?php echo $row['PostingDate'];?></td>
-												
-												<td >
-												<div class="visible-md visible-lg hidden-sm hidden-xs">
-							<a href="query-details.php?id=<?php echo $row['id'];?>" class="btn btn-transparent btn-lg" title="View Details"><i class="fa fa-file"></i></a>
-												</div>
-												<div class="visible-xs visible-sm hidden-md hidden-lg">
-													<div class="btn-group" dropdown is-open="status.isopen">
-														<button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" dropdown-toggle>
-															<i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
-														</button>
-														<ul class="dropdown-menu pull-right dropdown-light" role="menu">
-															<li>
-																<a href="#">
-																	Edit
-																</a>
-															</li>
-															<li>
-																<a href="#">
-																	Share
-																</a>
-															</li>
-															<li>
-																<a href="#">
-																	Remove
-																</a>
-															</li>
-														</ul>
-													</div>
-												</div></td>
-											</tr>
-											
-											<?php 
-$cnt=$cnt+1;
-											 }?>
-											
-											
-										</tbody>
-									</table>
-								</div>
-							</div>
-								</div>
-							</div>
-						</div>
-						<!-- end: BASIC EXAMPLE -->
-						<!-- end: SELECT BOXES -->
-						
-					</div>
-				</div>
-			</div>
-			<!-- start: FOOTER -->
-	<?php include('include/footer.php');?>
-			<!-- end: FOOTER -->
-		
-			<!-- start: SETTINGS -->
-	<?php include('include/setting.php');?>
-			
-			<!-- end: SETTINGS -->
-		</div>
-		<!-- start: MAIN JAVASCRIPTS -->
-		<script src="vendor/jquery/jquery.min.js"></script>
-		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-		<script src="vendor/modernizr/modernizr.js"></script>
-		<script src="vendor/jquery-cookie/jquery.cookie.js"></script>
-		<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-		<script src="vendor/switchery/switchery.min.js"></script>
-		<!-- end: MAIN JAVASCRIPTS -->
-		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-		<script src="vendor/maskedinput/jquery.maskedinput.min.js"></script>
-		<script src="vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
-		<script src="vendor/autosize/autosize.min.js"></script>
-		<script src="vendor/selectFx/classie.js"></script>
-		<script src="vendor/selectFx/selectFx.js"></script>
-		<script src="vendor/select2/select2.min.js"></script>
-		<script src="vendor/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-		<script src="vendor/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
-		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-		<!-- start: CLIP-TWO JAVASCRIPTS -->
-		<script src="assets/js/main.js"></script>
-		<!-- start: JavaScript Event Handlers for this page -->
-		<script src="assets/js/form-elements.js"></script>
-		<script>
-			jQuery(document).ready(function() {
-				Main.init();
-				FormElements.init();
-			});
-		</script>
-		<!-- end: JavaScript Event Handlers for this page -->
-		<!-- end: CLIP-TWO JAVASCRIPTS -->
-	</body>
+        /* ============================================
+           GLOBAL STYLES
+        ============================================ */
+        * {
+            font-family: 'Poppins', sans-serif !important;
+        }
+
+        body {
+            background: var(--light-blue-bg);
+            color: var(--text-primary);
+        }
+
+        .main-content {
+            background: var(--light-blue-bg);
+        }
+
+        .wrap-content {
+            padding: 30px 25px;
+        }
+
+        /* ============================================
+           PAGE HEADER
+        ============================================ */
+        #page-title {
+            background: transparent;
+            padding: 0 0 30px 0;
+            border: none;
+        }
+
+        #page-title .mainTitle {
+            color: var(--primary-blue);
+            font-size: 36px;
+            font-weight: 800;
+            margin: 0 0 15px 0;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .breadcrumb {
+            display: none;
+        }
+
+        /* ============================================
+           CARD CONTAINER
+        ============================================ */
+        .container-fluid.container-fullw.bg-white {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        /* ============================================
+           SECTION TITLE
+        ============================================ */
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--primary-blue);
+            font-size: 24px;
+        }
+
+        .section-title .text-bold {
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        /* Unread Badge */
+        .unread-badge {
+            background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+            margin-left: 10px;
+            box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        /* ============================================
+           TABLE CONTAINER
+        ============================================ */
+        .table-responsive {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+            margin-top: 20px;
+        }
+
+        /* ============================================
+           TABLE STYLES
+        ============================================ */
+        .table {
+            width: 100%;
+            margin-bottom: 0;
+            border-collapse: collapse;
+        }
+
+        /* Table Header */
+        .table thead {
+            background: #f8fafc;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .table thead th {
+            color: #64748b !important;
+            font-weight: 600;
+            padding: 16px 20px;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 11px;
+            white-space: nowrap;
+            text-align: left;
+        }
+
+        .table thead th.text-center {
+            text-align: center;
+        }
+
+        /* Table Body */
+        .table tbody tr {
+            background: white;
+            transition: var(--transition);
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .table tbody tr:hover {
+            background: var(--light-blue-bg);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+        }
+
+        .table tbody td {
+            padding: 16px 20px;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        /* Serial Number Column */
+        .table tbody td.center {
+            font-weight: 600;
+            color: var(--primary-blue);
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* Center aligned cells */
+        .table tbody td.text-center {
+            text-align: center;
+        }
+
+        /* Truncate long text */
+        .table tbody td.truncate {
+            max-width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ============================================
+           ACTION BUTTON
+        ============================================ */
+        .btn-action {
+            background: var(--primary-blue);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-action:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        .btn-action i {
+            font-size: 14px;
+        }
+
+        /* ============================================
+           EMPTY STATE
+        ============================================ */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-state i {
+            font-size: 50px;
+            color: var(--border-color);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .empty-state h4 {
+            color: var(--text-primary);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .empty-state p {
+            color: var(--text-light);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN (MOBILE)
+        ============================================ */
+        @media (max-width: 768px) {
+            .wrap-content {
+                padding: 20px 15px;
+            }
+
+            #page-title .mainTitle {
+                font-size: 28px;
+            }
+
+            .container-fluid.container-fullw.bg-white {
+                padding: 20px;
+                border-radius: 16px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            /* Hide table header on mobile */
+            .table thead {
+                display: none;
+            }
+
+            .table-responsive {
+                border: none;
+                box-shadow: none;
+            }
+
+            /* Card-style rows for mobile */
+            .table tbody tr {
+                display: block;
+                margin-bottom: 15px;
+                border-radius: 12px;
+                box-shadow: var(--shadow-sm);
+                border: 1px solid var(--border-color);
+                overflow: hidden;
+            }
+
+            .table tbody td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 14px 16px;
+                border-bottom: 1px solid var(--border-color);
+                text-align: right;
+            }
+
+            .table tbody td:last-child {
+                border-bottom: none;
+                justify-content: center;
+                padding: 16px;
+            }
+
+            /* Add labels before content on mobile */
+            .table tbody td:before {
+                content: attr(data-label);
+                font-weight: 700;
+                color: var(--primary-blue);
+                text-align: left;
+                flex: 1;
+                padding-right: 15px;
+            }
+
+            .btn-action {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .table tbody td.truncate {
+                max-width: 100%;
+                white-space: normal;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <?php include('include/sidebar.php'); ?>
+        
+        <div class="app-content">
+            <?php include('include/header.php'); ?>
+            
+            <div class="main-content">
+                <div class="wrap-content container" id="container">
+                    
+                    <!-- Page Title -->
+                    <section id="page-title">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h1 class="mainTitle">Unread Queries</h1>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Main Content Card -->
+                    <div class="container-fluid container-fullw bg-white">
+                        <div class="row">
+                            <div class="col-md-12">
+                                
+                                <!-- Section Title -->
+                                <?php
+                                $unread_count = mysqli_num_rows(mysqli_query($con,"select * from tblcontactus where IsRead is null"));
+                                ?>
+                                <h5 class="section-title">
+                                    <i class="fa fa-inbox"></i> Manage <span class="text-bold">Unread Queries</span>
+                                </h5>
+                                
+                                <!-- Table -->
+                                <div class="table-responsive">
+                                    <table class="table table-hover" id="sample-table-1">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">#</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Contact No.</th>
+                                                <th>Message</th>
+                                                <th>Query Date</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $sql = mysqli_query($con, "SELECT * FROM tblcontactus WHERE IsRead IS NULL ORDER BY PostingDate DESC");
+                                            $cnt = 1;
+                                            $num_rows = mysqli_num_rows($sql);
+                                            
+                                            if ($num_rows > 0) {
+                                                while ($row = mysqli_fetch_array($sql)) {
+                                            ?>
+                                                <tr>
+                                                    <td class="center" data-label="#"><?php echo $cnt; ?></td>
+                                                    <td data-label="Name"><?php echo htmlentities($row['fullname']); ?></td>
+                                                    <td data-label="Email"><?php echo htmlentities($row['email']); ?></td>
+                                                    <td data-label="Contact No."><?php echo htmlentities($row['contactno']); ?></td>
+                                                    <td class="truncate" data-label="Message" title="<?php echo htmlentities($row['message']); ?>">
+                                                        <?php echo htmlentities($row['message']); ?>
+                                                    </td>
+                                                    <td data-label="Query Date"><?php echo htmlentities($row['PostingDate']); ?></td>
+                                                    <td class="text-center" data-label="Action">
+                                                        <a href="query-details.php?id=<?php echo $row['id']; ?>" class="btn-action" title="View Details">
+                                                            <i class="fa fa-file-text-o"></i> View Details
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php
+                                                    $cnt++;
+                                                }
+                                            } else {
+                                            ?>
+                                                <tr>
+                                                    <td colspan="7">
+                                                        <div class="empty-state">
+                                                            <i class="fa fa-inbox"></i>
+                                                            <h4>No Unread Queries</h4>
+                                                            <p>All queries have been read. Great job!</p>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <?php include('include/setting.php'); ?>
+    </div>
+
+    <!-- Vendor Scripts -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/modernizr/modernizr.js"></script>
+    <script src="vendor/jquery-cookie/jquery.cookie.js"></script>
+    <script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="vendor/switchery/switchery.min.js"></script>
+    <script src="vendor/maskedinput/jquery.maskedinput.min.js"></script>
+    <script src="vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="vendor/autosize/autosize.min.js"></script>
+    <script src="vendor/selectFx/classie.js"></script>
+    <script src="vendor/selectFx/selectFx.js"></script>
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="vendor/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/form-elements.js"></script>
+    
+    <script>
+        jQuery(document).ready(function() {
+            // Initialize main functions
+            Main.init();
+            FormElements.init();
+            
+            // Add data-label attributes for mobile responsiveness
+            $('table thead th').each(function(index) {
+                var label = $(this).text().trim();
+                $('table tbody td:nth-child(' + (index + 1) + ')').attr('data-label', label);
+            });
+        });
+    </script>
+</body>
 </html>
-
 <?php } ?>
