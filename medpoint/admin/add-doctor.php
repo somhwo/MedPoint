@@ -575,10 +575,7 @@ error:function (){}
 						
 					</div>
 				</div>
-			</div>
-			<!-- start: FOOTER -->
-			<!-- end: FOOTER -->
-		
+			</div>		
 			<!-- start: SETTINGS -->
 	<?php include('include/setting.php');?>
 			

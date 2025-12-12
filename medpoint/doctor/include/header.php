@@ -22,7 +22,6 @@
 						<ul class="nav navbar-right">
 							<!-- start: MESSAGES DROPDOWN -->
 								<li  style="padding-top:2% ">
-								<h2>MedPoint: Doctor Appointment Booking System</h2>
 							</li>
 						
 						

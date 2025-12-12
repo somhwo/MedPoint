@@ -1,13 +1,42 @@
 <?php
 include_once('medpoint/include/config.php');
+
+// Define primary color palette
+$primary_color = '#007bff'; // A strong, professional blue
+$secondary_color = '#6c757d'; // A muted gray for secondary elements
+$accent_color = '#17a2b8'; // A brighter blue/cyan for accents
+$light_bg = '#f8f9fa'; // Very light background
+$dark_text = '#212529'; // Dark text
+$light_text = '#ffffff'; // Light text
+
 if(isset($_POST['submit']))
 {
-$name=$_POST['fullname'];
-$email=$_POST['emailid'];
-$mobileno=$_POST['mobileno'];
-$dscrption=$_POST['description'];
-$query=mysqli_query($con,"insert into tblcontactus(fullname,email,contactno,message) value('$name','$email','$mobileno','$dscrption')");
-echo "<script>alert('Your information succesfully submitted');</script>";
+// SANITIZE USER INPUT TO PREVENT SQL INJECTION
+$name = mysqli_real_escape_string($con, $_POST['fullname']);
+$email = mysqli_real_escape_string($con, $_POST['emailid']);
+$mobileno = mysqli_real_escape_string($con, $_POST['mobileno']);
+$dscrption = mysqli_real_escape_string($con, $_POST['description']);
+
+// USE PREPARED STATEMENTS FOR SECURITY
+// Prepared statements are a much safer way to handle database interaction,
+// but for a quick fix based on your existing code structure,
+// let's stick to the immediate fix which is using mysqli_real_escape_string
+// as your code is using simple concatenation and is vulnerable to SQL injection.
+
+// Original Query (VULNERABLE)
+// $query=mysqli_query($con,"insert into tblcontactus(fullname,email,contactno,message) value('$name','$email','$mobileno','$dscrption')");
+
+// Safer Query using mysqli_real_escape_string on all inputs
+$query = mysqli_query($con, "INSERT INTO tblcontactus(fullname, email, contactno, message) 
+                                 VALUES ('$name', '$email', '$mobileno', '$dscrption')");
+
+if($query) {
+    echo "<script>alert('Your information successfully submitted');</script>";
+} else {
+    // Error handling
+    echo "<script>alert('Error submitting information: " . mysqli_error($con) . "');</script>";
+}
+
 echo "<script>window.location.href ='index.php'</script>";
 }
 ?>
@@ -25,6 +54,24 @@ echo "<script>window.location.href ='index.php'</script>";
     <link rel="stylesheet" href="assets/css/animate.css">
     
     <style>
+        /*
+         * ====================================================================
+         * MODERN BLUE THEME STYLES
+         * ====================================================================
+         */
+
+        :root {
+            --primary-blue: #007bff; /* Main Blue */
+            --secondary-blue: #0056b3; /* Darker Blue */
+            --accent-cyan: #17a2b8; /* Cyan/Teal Accent */
+            --light-gray: #f8f9fa; /* Section Background */
+            --white: #ffffff;
+            --dark-text: #212529;
+            --muted-text: #6c757d;
+            --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+            --gradient-blue: linear-gradient(135deg, var(--primary-blue) 0%, #0099ff 100%);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -37,16 +84,16 @@ echo "<script>window.location.href ='index.php'</script>";
         }
         
         body {
-            background: #f5f7fa;
-            color: #1e293b;
+            background: var(--light-gray);
+            color: var(--dark-text);
             overflow-x: hidden;
         }
         
-        /* ============= NAVBAR ============= */
+        /* ============= HEADER / NAVBAR ============= */
         .header-modern {
             background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--box-shadow);
             padding: 18px 0;
             position: fixed;
             width: 100%;
@@ -57,13 +104,13 @@ echo "<script>window.location.href ='index.php'</script>";
         
         .header-modern.scrolled {
             padding: 10px 0;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
         
         .logo-text {
             font-size: 34px;
             font-weight: 900;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--gradient-blue);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -1.5px;
@@ -80,7 +127,7 @@ echo "<script>window.location.href ='index.php'</script>";
         }
         
         .nav-links a {
-            color: #475569;
+            color: var(--dark-text);
             text-decoration: none;
             font-weight: 600;
             font-size: 15px;
@@ -96,7 +143,7 @@ echo "<script>window.location.href ='index.php'</script>";
             left: 50%;
             width: 0;
             height: 3px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: var(--primary-blue);
             transition: all 0.3s ease;
             transform: translateX(-50%);
             border-radius: 2px;
@@ -107,17 +154,18 @@ echo "<script>window.location.href ='index.php'</script>";
         }
         
         .nav-links a:hover {
-            color: #667eea;
+            color: var(--primary-blue);
         }
         
+        /* Primary Call-to-Action Button */
         .btn-book {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #ffffff !important;
+            background: var(--gradient-blue);
+            color: var(--white) !important;
             padding: 12px 32px;
             border-radius: 30px;
             font-weight: 700;
             text-decoration: none;
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.35);
+            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.3);
             transition: all 0.3s ease;
             border: none;
             font-size: 14px;
@@ -126,11 +174,11 @@ echo "<script>window.location.href ='index.php'</script>";
         
         .btn-book:hover {
             transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.45);
-            color: #ffffff !important;
+            box-shadow: 0 15px 30px rgba(0, 123, 255, 0.45);
+            color: var(--white) !important;
         }
         
-        /* ============= CAROUSEL ============= */
+        /* ============= CAROUSEL / HERO ============= */
         .hero-carousel {
             margin-top: 85px;
             position: relative;
@@ -145,7 +193,7 @@ echo "<script>window.location.href ='index.php'</script>";
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.7);
+            filter: brightness(0.5); /* Make images darker for better text contrast */
         }
         
         .gradient-overlay {
@@ -154,7 +202,8 @@ echo "<script>window.location.href ='index.php'</script>";
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            /* Lighter blue overlay for a fresher look */
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.8) 0%, rgba(23, 162, 184, 0.8) 100%);
         }
         
         .hero-text {
@@ -163,28 +212,28 @@ echo "<script>window.location.href ='index.php'</script>";
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            color: #ffffff;
+            color: var(--white);
             z-index: 3;
             width: 85%;
-            max-width: 900px;
+            max-width: 1000px;
         }
         
         .hero-text h1 {
-            font-size: 72px;
+            font-size: 68px; /* Slightly refined size */
             font-weight: 900;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             line-height: 1.1;
             letter-spacing: -2.5px;
-            text-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             animation: fadeInUp 0.8s ease;
         }
         
         .hero-text p {
-            font-size: 24px;
-            margin-bottom: 50px;
-            opacity: 0.98;
+            font-size: 22px;
+            margin-bottom: 40px;
+            opacity: 0.95;
             font-weight: 400;
-            line-height: 1.7;
+            line-height: 1.6;
             max-width: 750px;
             margin-left: auto;
             margin-right: auto;
@@ -193,40 +242,40 @@ echo "<script>window.location.href ='index.php'</script>";
         
         .hero-features {
             display: flex;
-            gap: 40px;
+            gap: 30px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 50px;
+            margin-top: 40px;
             animation: fadeInUp 1.2s ease;
         }
         
         .feature-badge {
             display: flex;
             align-items: center;
-            gap: 12px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 16px 28px;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 14px 25px;
             border-radius: 50px;
-            border: 2px solid rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.4s ease;
         }
         
         .feature-badge:hover {
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.2);
             border-color: rgba(255, 255, 255, 0.4);
-            transform: translateY(-5px);
+            transform: translateY(-3px);
         }
         
         .feature-badge i {
-            font-size: 24px;
-            color: #ffffff;
+            font-size: 20px;
+            color: var(--white);
         }
         
         .feature-badge span {
-            font-size: 15px;
-            font-weight: 700;
-            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--white);
             letter-spacing: 0.5px;
         }
         
@@ -234,7 +283,7 @@ echo "<script>window.location.href ='index.php'</script>";
             display: flex;
             gap: 60px;
             justify-content: center;
-            margin-top: 60px;
+            margin-top: 50px;
             animation: fadeInUp 1.4s ease;
         }
         
@@ -243,82 +292,80 @@ echo "<script>window.location.href ='index.php'</script>";
         }
         
         .stat-number {
-            font-size: 48px;
+            font-size: 42px;
             font-weight: 900;
-            color: #ffffff;
+            color: var(--white);
             line-height: 1;
-            margin-bottom: 10px;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 8px;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
         }
         
         .stat-label {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.9);
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.85);
             font-weight: 500;
-        }
-        
-        .carousel-control-prev,
-        .carousel-control-next {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 1;
-        }
-        
-        .carousel-control-prev {
-            left: 30px;
-        }
-        
-        .carousel-control-next {
-            right: 30px;
-        }
-        
-        .carousel-control-prev:hover,
-        .carousel-control-next:hover {
-            background: rgba(255, 255, 255, 0.3);
         }
         
         /* ============= SECTIONS ============= */
         .section-wrapper {
-            padding: 110px 0;
+            padding: 100px 0;
         }
         
         .section-header {
             text-align: center;
-            margin-bottom: 70px;
+            margin-bottom: 60px;
         }
         
         .section-header h2 {
-            font-size: 48px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-size: 44px;
+            font-weight: 800;
+            background: var(--gradient-blue);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 18px;
-            letter-spacing: -2px;
+            margin-bottom: 15px;
+            letter-spacing: -1.5px;
         }
         
         .section-header p {
-            font-size: 19px;
-            color: #64748b;
-            font-weight: 500;
-            max-width: 600px;
+            font-size: 18px;
+            color: var(--muted-text);
+            font-weight: 400;
+            max-width: 650px;
             margin: 0 auto;
+        }
+        
+        /* ============= ABOUT US ============= */
+        #about .col-lg-6:first-child {
+            padding-right: 30px; /* Space out the image and text */
+        }
+
+        #about img {
+            max-height: 450px; /* Set max height for better presentation */
+        }
+        
+        #about h3 {
+            font-size: 34px;
+            font-weight: 800;
+            color: var(--dark-text);
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        #about p {
+            font-size: 16px;
+            color: var(--muted-text);
+            line-height: 1.7;
         }
         
         /* ============= LOGIN CARDS ============= */
         .portal-card {
-            background: #ffffff;
-            border-radius: 28px;
-            padding: 55px 45px;
+            background: var(--white);
+            border-radius: 20px; /* Slightly softer corners */
+            padding: 45px 35px;
             text-align: center;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
-            border: 2px solid transparent;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--light-gray);
+            transition: all 0.4s cubic-bezier(0.2, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             height: 100%;
@@ -330,62 +377,63 @@ echo "<script>window.location.href ='index.php'</script>";
             top: 0;
             left: 0;
             right: 0;
-            height: 8px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 6px;
+            background: var(--primary-blue);
+            transition: all 0.4s ease;
         }
         
         .portal-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 25px 70px rgba(102, 126, 234, 0.25);
-            border-color: rgba(102, 126, 234, 0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 123, 255, 0.15);
+            border-color: rgba(0, 123, 255, 0.2);
         }
         
         .portal-icon {
-            width: 110px;
-            height: 110px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 90px;
+            height: 90px;
+            background: var(--gradient-blue);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 30px;
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+            margin: 0 auto 25px;
+            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.3);
             transition: all 0.4s ease;
         }
         
         .portal-card:hover .portal-icon {
-            transform: scale(1.15) rotate(10deg);
-            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.5);
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.4);
         }
         
         .portal-icon i {
-            font-size: 50px;
-            color: #ffffff;
+            font-size: 40px;
+            color: var(--white);
         }
         
         .portal-card h3 {
-            font-size: 26px;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 15px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 10px;
             letter-spacing: -0.5px;
         }
         
         .portal-card p {
-            color: #64748b;
+            color: var(--muted-text);
             font-size: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             line-height: 1.6;
         }
         
         .btn-portal {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #ffffff;
-            padding: 16px 55px;
-            border-radius: 30px;
-            font-weight: 700;
+            background: var(--gradient-blue);
+            color: var(--white);
+            padding: 14px 45px;
+            border-radius: 25px;
+            font-weight: 600;
             text-decoration: none;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.35);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
             transition: all 0.3s ease;
             border: none;
             display: inline-block;
@@ -393,91 +441,144 @@ echo "<script>window.location.href ='index.php'</script>";
         }
         
         .btn-portal:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.45);
-            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 123, 255, 0.4);
+            color: var(--white);
             text-decoration: none;
+        }
+
+        /* ============= CONTACT INFO CARDS (Reusing portal-card style) ============= */
+        #contact .portal-card {
+            border: none;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            transition: transform 0.3s ease;
+            height: auto;
+        }
+        #contact .portal-card:hover {
+            transform: translateY(-5px);
+        }
+        #contact .portal-card::before {
+            display: none;
+        }
+        #contact .contact-icon-wrap {
+            width: 65px;
+            height: 65px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+        #contact .contact-icon-wrap i {
+            font-size: 28px;
+            color: var(--white);
+        }
+        #contact h4 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 10px;
+        }
+        #contact p {
+            color: var(--muted-text);
+            font-size: 15px;
+        }
+        
+        /* Contact Form Fields */
+        #contact .form-control {
+            padding: 14px 18px;
+            border: 1px solid #ced4da;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        #contact .form-control:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
         }
         
         /* ============= SERVICE CARDS ============= */
         .service-box {
-            background: #ffffff;
-            border-radius: 24px;
-            padding: 45px 35px;
+            background: var(--white);
+            border-radius: 18px;
+            padding: 40px 30px;
             text-align: center;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.07);
-            border: 2px solid transparent;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--light-gray);
             transition: all 0.4s ease;
             margin-bottom: 30px;
             height: 100%;
         }
         
         .service-box:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
-            border-color: rgba(102, 126, 234, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.1);
+            border-color: rgba(0, 123, 255, 0.1);
         }
         
         .service-icon-wrap {
-            width: 90px;
-            height: 90px;
-            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
-            border-radius: 22px;
+            width: 80px;
+            height: 80px;
+            background: rgba(0, 123, 255, 0.1); /* Lighter blue background */
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 25px;
+            margin: 0 auto 20px;
             transition: all 0.4s ease;
         }
         
         .service-box:hover .service-icon-wrap {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transform: scale(1.15) rotate(8deg);
+            background: var(--gradient-blue);
+            transform: scale(1.1);
         }
         
         .service-icon-wrap i {
-            font-size: 40px;
-            color: #667eea;
+            font-size: 36px;
+            color: var(--primary-blue);
             transition: all 0.4s ease;
         }
         
         .service-box:hover .service-icon-wrap i {
-            color: #ffffff;
+            color: var(--white);
         }
         
         .service-box h5 {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
-            color: #0f172a;
-            margin: 20px 0 15px 0;
+            color: var(--dark-text);
+            margin: 15px 0 10px 0;
             letter-spacing: -0.5px;
         }
         
         .service-box p {
-            color: #64748b;
+            color: var(--muted-text);
             font-size: 15px;
-            line-height: 1.7;
+            line-height: 1.6;
         }
         
         /* ============= GALLERY ============= */
         .gallery-wrap {
-            background: #f8fafc;
-            padding: 110px 0;
+            background: var(--light-gray);
+            padding: 100px 0;
         }
         
         .filter-bar {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
         
         .btn-filter {
-            background: #ffffff;
-            color: #475569;
-            padding: 14px 35px;
-            border-radius: 30px;
-            font-weight: 600;
-            border: 2px solid #e2e8f0;
-            margin: 8px;
+            background: var(--white);
+            color: var(--dark-text);
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-weight: 500;
+            border: 1px solid #ced4da;
+            margin: 6px;
             transition: all 0.3s ease;
             cursor: pointer;
             font-size: 14px;
@@ -485,84 +586,96 @@ echo "<script>window.location.href ='index.php'</script>";
         
         .btn-filter:hover,
         .btn-filter.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #ffffff;
-            border-color: transparent;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.35);
+            background: var(--primary-blue);
+            color: var(--white);
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
         }
         
         .gallery-image {
-            border-radius: 24px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
             transition: all 0.4s ease;
             cursor: pointer;
         }
         
         .gallery-image:hover {
-            transform: scale(1.08);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
         
         .gallery-image img {
             width: 100%;
-            height: 320px;
+            height: 300px;
             object-fit: cover;
             transition: all 0.4s ease;
         }
         
         .gallery-image:hover img {
-            transform: scale(1.1);
+            transform: scale(1.03);
         }
         
         /* ============= FOOTER ============= */
         .footer-wrap {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: #ffffff;
-            padding: 40px 0;
+            background: var(--secondary-blue);
+            color: var(--white);
+            padding: 30px 0;
             text-align: center;
         }
         
         .footer-wrap p {
             margin: 0;
-            font-size: 16px;
-            font-weight: 500;
+            font-size: 15px;
+            font-weight: 400;
             opacity: 0.9;
         }
         
         /* ============= RESPONSIVE ============= */
-        @media (max-width: 768px) {
-            .hero-text h1 {
-                font-size: 38px;
-            }
-            
-            .hero-text p {
-                font-size: 17px;
-            }
-            
-            .section-header h2 {
-                font-size: 36px;
-            }
-            
+        @media (max-width: 992px) {
             .nav-links {
                 display: none;
             }
-            
-            .carousel-item {
-                height: 550px;
+            .logo-text {
+                font-size: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 42px;
             }
             
-            .hero-btn-group {
-                flex-direction: column;
-                align-items: center;
+            .hero-text p {
+                font-size: 18px;
+            }
+            
+            .section-header h2 {
+                font-size: 32px;
+            }
+            
+            .carousel-item {
+                height: 500px;
+            }
+
+            .stat-number {
+                font-size: 36px;
+            }
+
+            #about .col-lg-6:first-child {
+                padding-right: 15px;
+            }
+            
+            #about img {
+                max-height: 300px;
+                margin-bottom: 50px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- NAVBAR -->
     <header class="header-modern">
         <div class="container">
             <div class="row align-items-center">
@@ -588,7 +701,6 @@ echo "<script>window.location.href ='index.php'</script>";
         </div>
     </header>
 
-    <!-- CAROUSEL -->
     <section id="home" class="hero-carousel">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -598,11 +710,12 @@ echo "<script>window.location.href ='index.php'</script>";
             
             <div class="carousel-inner">
                 <div class="carousel-item">
+                     
                     <img src="assets/images/slider/slider_4.jpg" alt="Healthcare">
                     <div class="gradient-overlay"></div>
                     <div class="hero-text">
-                        <h1>Excellence in Healthcare</h1>
-                        <p>World-class medical services with compassion and expertise for you and your family</p>
+                        <h1>Excellence in Comprehensive Healthcare</h1>
+                        <p>World-class medical services with compassion and expertise for you and your family, available 24/7.</p>
                         <div class="hero-features">
                             <div class="feature-badge">
                                 <i class="fas fa-shield-heart"></i>
@@ -635,11 +748,12 @@ echo "<script>window.location.href ='index.php'</script>";
                 </div>
                 
                 <div class="carousel-item active">
+                    
                     <img src="assets/images/slider/slider_5.jpg" alt="Medical Care">
                     <div class="gradient-overlay"></div>
                     <div class="hero-text">
-                        <h1>Your Health, Our Priority</h1>
-                        <p>Modern facilities and experienced doctors providing comprehensive healthcare solutions</p>
+                        <h1>Your Health, Our Top Priority</h1>
+                        <p>Modern facilities and experienced doctors providing comprehensive and personalized healthcare solutions.</p>
                         <div class="hero-features">
                             <div class="feature-badge">
                                 <i class="fas fa-hospital"></i>
@@ -683,46 +797,45 @@ echo "<script>window.location.href ='index.php'</script>";
         </div>
     </section>
 
-    <!-- ABOUT US -->
     <section id="about" class="section-wrapper">
         <div class="container">
             <div class="section-header">
                 <h2>About MedPoint</h2>
-                <p>Committed to excellence in healthcare delivery</p>
+                <p>Committed to excellence in healthcare delivery and patient well-being.</p>
             </div>
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-4">
                     <div style="position: relative;">
-                        <img src="assets/images/slider/slider_5.jpg" alt="About Us" style="width: 100%; border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
-                        <div style="position: absolute; bottom: -30px; right: -30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 20px; box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);">
+                        <img src="assets/images/slider/slider_5.jpg" alt="About Us" class="img-fluid" style="border-radius: 20px; box-shadow: 0 15px 45px rgba(0,0,0,0.1);">
+                        <div style="position: absolute; bottom: -20px; right: -20px; background: var(--primary-blue); padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 123, 255, 0.4);">
                             <div style="text-align: center; color: white;">
-                                <div style="font-size: 42px; font-weight: 900; line-height: 1;">15+</div>
-                                <div style="font-size: 14px; font-weight: 600; margin-top: 5px;">Years</div>
+                                <div style="font-size: 38px; font-weight: 800; line-height: 1;">15+</div>
+                                <div style="font-size: 13px; font-weight: 600; margin-top: 3px;">Years of Excellence</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 mb-4">
-                    <h3 style="font-size: 38px; font-weight: 800; color: #0f172a; margin-bottom: 25px; letter-spacing: -1px;">Your Health Partner for Life</h3>
-                    <p style="font-size: 17px; color: #64748b; line-height: 1.8; margin-bottom: 25px;">MedPoint has been at the forefront of healthcare excellence for over 15 years. We combine cutting-edge medical technology with compassionate care to provide comprehensive healthcare solutions.</p>
-                    <p style="font-size: 17px; color: #64748b; line-height: 1.8; margin-bottom: 30px;">Our team of experienced doctors and medical professionals are dedicated to ensuring your well-being through personalized treatment plans and state-of-the-art facilities.</p>
-                    <div style="display: flex; gap: 30px; flex-wrap: wrap;">
-                        <div style="display: flex; align-items: center; gap: 15px;">
-                            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-check-circle" style="font-size: 28px; color: #667eea;"></i>
+                    <h3>Your Dedicated Health Partner</h3>
+                    <p>MedPoint has been at the forefront of healthcare excellence for over 15 years. We seamlessly integrate **cutting-edge medical technology** with compassionate care to provide comprehensive healthcare solutions tailored for every individual.</p>
+                    <p>Our team of highly experienced doctors and dedicated medical professionals are passionate about your well-being, utilizing **personalized treatment plans** and our state-of-the-art facilities to ensure the best possible outcomes.</p>
+                    <div class="d-flex flex-wrap" style="gap: 30px;">
+                        <div class="d-flex align-items-center" style="gap: 15px;">
+                            <div class="contact-icon-wrap" style="background: rgba(0, 123, 255, 0.1); box-shadow: none;">
+                                <i class="fas fa-check-circle" style="font-size: 26px; color: var(--primary-blue);"></i>
                             </div>
                             <div>
-                                <div style="font-size: 18px; font-weight: 700; color: #0f172a;">Certified</div>
-                                <div style="font-size: 14px; color: #64748b;">ISO Certified</div>
+                                <div style="font-size: 17px; font-weight: 600; color: var(--dark-text);">Certified</div>
+                                <div style="font-size: 14px; color: var(--muted-text);">ISO Certified Facilities</div>
                             </div>
                         </div>
-                        <div style="display: flex; align-items: center; gap: 15px;">
-                            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-award" style="font-size: 28px; color: #667eea;"></i>
+                        <div class="d-flex align-items-center" style="gap: 15px;">
+                            <div class="contact-icon-wrap" style="background: rgba(0, 123, 255, 0.1); box-shadow: none;">
+                                <i class="fas fa-award" style="font-size: 26px; color: var(--primary-blue);"></i>
                             </div>
                             <div>
-                                <div style="font-size: 18px; font-weight: 700; color: #0f172a;">Excellence</div>
-                                <div style="font-size: 14px; color: #64748b;">Award Winning</div>
+                                <div style="font-size: 17px; font-weight: 600; color: var(--dark-text);">Excellence</div>
+                                <div style="font-size: 14px; color: var(--muted-text);">Award-Winning Service</div>
                             </div>
                         </div>
                     </div>
@@ -731,12 +844,11 @@ echo "<script>window.location.href ='index.php'</script>";
         </div>
     </section>
 
-    <!-- LOGINS -->
-    <section id="logins" class="section-wrapper">
+    <section id="logins" class="section-wrapper" style="background: var(--light-gray);">
         <div class="container">
             <div class="section-header">
                 <h2>Access Your Account</h2>
-                <p>Choose your portal to login and manage your healthcare journey</p>
+                <p>Choose your portal to login and seamlessly manage your healthcare journey.</p>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-6 mb-4">
@@ -744,8 +856,8 @@ echo "<script>window.location.href ='index.php'</script>";
                         <div class="portal-icon">
                             <i class="fas fa-user"></i>
                         </div>
-                        <h3>Patient Login</h3>
-                        <p>Book appointments and manage your health records securely</p>
+                        <h3>Patient Portal</h3>
+                        <p>Book appointments, view lab results, and manage your health records securely.</p>
                         <a href="medpoint/user-login.php" class="btn-portal">
                             Login Now
                         </a>
@@ -756,8 +868,8 @@ echo "<script>window.location.href ='index.php'</script>";
                         <div class="portal-icon">
                             <i class="fas fa-user-doctor"></i>
                         </div>
-                        <h3>Doctor Login</h3>
-                        <p>Manage appointments and patient records efficiently</p>
+                        <h3>Doctor Portal</h3>
+                        <p>Manage appointments, access patient history, and update clinical notes efficiently.</p>
                         <a href="medpoint/doctor" class="btn-portal">
                             Login Now
                         </a>
@@ -768,8 +880,8 @@ echo "<script>window.location.href ='index.php'</script>";
                         <div class="portal-icon">
                             <i class="fas fa-user-shield"></i>
                         </div>
-                        <h3>Admin Login</h3>
-                        <p>System administration and complete management control</p>
+                        <h3>Admin Portal</h3>
+                        <p>System administration, complete management control, and reporting tools.</p>
                         <a href="medpoint/admin" class="btn-portal">
                             Login Now
                         </a>
@@ -779,12 +891,11 @@ echo "<script>window.location.href ='index.php'</script>";
         </div>
     </section>
 
-    <!-- SERVICES -->
-    <section id="services" class="section-wrapper" style="background: #f8fafc;">
+    <section id="services" class="section-wrapper">
         <div class="container">
             <div class="section-header">
-                <h2>Our Medical Services</h2>
-                <p>Comprehensive healthcare solutions delivered with excellence</p>
+                <h2>Our Specialized Medical Services</h2>
+                <p>Comprehensive healthcare solutions delivered by top specialists with clinical excellence.</p>
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-6">
@@ -793,7 +904,7 @@ echo "<script>window.location.href ='index.php'</script>";
                             <i class="fas fa-heartbeat"></i>
                         </div>
                         <h5>Cardiology</h5>
-                        <p>Expert heart care and advanced cardiovascular treatments</p>
+                        <p>Expert heart care using advanced diagnostics and cardiovascular treatments.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
@@ -802,7 +913,7 @@ echo "<script>window.location.href ='index.php'</script>";
                             <i class="fas fa-bone"></i>
                         </div>
                         <h5>Orthopedics</h5>
-                        <p>Comprehensive bone and joint care for better mobility</p>
+                        <p>Comprehensive bone, joint, and muscle care for improved mobility and recovery.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
@@ -811,7 +922,7 @@ echo "<script>window.location.href ='index.php'</script>";
                             <i class="fas fa-brain"></i>
                         </div>
                         <h5>Neurology</h5>
-                        <p>Advanced neurological care and specialized treatments</p>
+                        <p>Specialized care for disorders of the brain and nervous system by leading experts.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
@@ -819,8 +930,8 @@ echo "<script>window.location.href ='index.php'</script>";
                         <div class="service-icon-wrap">
                             <i class="fas fa-capsules"></i>
                         </div>
-                        <h5>Pharma Pipeline</h5>
-                        <p>Quality medications and pharmaceutical excellence</p>
+                        <h5>Pharmacy Pipeline</h5>
+                        <p>Ensuring timely access to quality medications and the latest pharmaceutical treatments.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
@@ -828,29 +939,28 @@ echo "<script>window.location.href ='index.php'</script>";
                         <div class="service-icon-wrap">
                             <i class="fas fa-prescription-bottle"></i>
                         </div>
-                        <h5>Pharmacy Team</h5>
-                        <p>Professional medication management and consultation</p>
+                        <h5>Medication Management</h5>
+                        <p>Professional oversight and consultation for all your prescription and pharmacy needs.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="service-box">
                         <div class="service-icon-wrap">
-                            <i class="fas fa-medal"></i>
+                            <i class="fas fa-microscope"></i>
                         </div>
-                        <h5>Quality Treatments</h5>
-                        <p>Premium healthcare services you can trust completely</p>
+                        <h5>Diagnostics & Lab</h5>
+                        <p>Precise and rapid laboratory testing for accurate and timely diagnosis.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- GALLERY -->
     <section id="gallery" class="gallery-wrap">
         <div class="container">
             <div class="section-header">
-                <h2>Our Facilities</h2>
-                <p>Take a virtual tour of our state-of-the-art medical facilities</p>
+                <h2>Our Modern Facilities</h2>
+                <p>Explore the clean and advanced environment where your care takes place.</p>
             </div>
             <div class="filter-bar">
                 <button class="btn-filter active" data-filter="all">All</button>
@@ -862,71 +972,76 @@ echo "<script>window.location.href ='index.php'</script>";
             <div class="row" id="galleryContainer">
                 <div class="col-lg-4 col-md-6 filter hdpe">
                     <div class="gallery-image">
-                        <img src="assets/images/gallery/dental.jpg" alt="Dental">
+                         
+                        <img src="assets/images/gallery/dental.jpg" alt="Dental Clinic">
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 filter sprinkle">
                     <div class="gallery-image">
-                        <img src="assets/images/gallery/cardiology.jpg" alt="Cardiology">
+                        
+                        <img src="assets/images/gallery/cardiology.jpg" alt="Cardiology Unit">
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 filter hdpe">
                     <div class="gallery-image">
-                        <img src="assets/images/gallery/gallery_03.jpg" alt="Facility">
+                        
+                        <img src="assets/images/gallery/gallery_03.jpg" alt="Examination Room">
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 filter irrigation">
                     <div class="gallery-image">
-                        <img src="assets/images/gallery/kabir.jpg" alt="Laboratory">
+                        
+                        <img src="assets/images/gallery/kabir.jpg" alt="Medical Laboratory">
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 filter spray">
                     <div class="gallery-image">
-                        <img src="assets/images/gallery/gallery_05.jpg" alt="Neurology">
+                        
+                        <img src="assets/images/gallery/gallery_05.jpg" alt="Diagnostic Imaging">
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 filter spray">
                     <div class="gallery-image">
-                        <img src="assets/images/gallery/gallery_06.jpg" alt="Medical">
+                        
+                        <img src="assets/images/gallery/gallery_06.jpg" alt="Patient Waiting Area">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CONTACT US -->
-    <section id="contact" class="section-wrapper" style="background: #f8fafc;">
+    <section id="contact" class="section-wrapper">
         <div class="container">
             <div class="section-header">
                 <h2>Get In Touch</h2>
-                <p>We'd love to hear from you. Reach out to us today</p>
+                <p>We'd love to hear from you. Reach out to our team today for inquiries or support.</p>
             </div>
             <div class="row">
                 <div class="col-lg-4 mb-4">
-                    <div class="portal-card" style="text-align: left;">
-                        <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px;">
-                            <i class="fas fa-map-marker-alt" style="font-size: 32px; color: white;"></i>
+                    <div class="portal-card">
+                        <div class="contact-icon-wrap">
+                            <i class="fas fa-map-marker-alt"></i>
                         </div>
-                        <h4 style="font-size: 22px; font-weight: 700; color: #0f172a; margin-bottom: 15px;">Visit Us</h4>
-                        <p style="color: #64748b; font-size: 16px; line-height: 1.8; margin: 0;">123 Medical Center Drive<br>Healthcare City, HC 12345<br>Philippines</p>
+                        <h4>Visit Our Clinic</h4>
+                        <p>123 Medical Center Drive<br>Healthcare City, HC 12345<br>Philippines</p>
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
-                    <div class="portal-card" style="text-align: left;">
-                        <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px;">
-                            <i class="fas fa-phone" style="font-size: 32px; color: white;"></i>
+                    <div class="portal-card">
+                        <div class="contact-icon-wrap">
+                            <i class="fas fa-phone"></i>
                         </div>
-                        <h4 style="font-size: 22px; font-weight: 700; color: #0f172a; margin-bottom: 15px;">Call Us</h4>
-                        <p style="color: #64748b; font-size: 16px; line-height: 1.8; margin: 0;">Phone: +63 123 456 7890<br>Emergency: +63 987 654 3210<br>Available 24/7</p>
+                        <h4>Call Our Hotline</h4>
+                        <p>Phone: +63 123 456 7890<br>Emergency: +63 987 654 3210<br>**Available 24/7**</p>
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
-                    <div class="portal-card" style="text-align: left;">
-                        <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px;">
-                            <i class="fas fa-envelope" style="font-size: 32px; color: white;"></i>
+                    <div class="portal-card">
+                        <div class="contact-icon-wrap">
+                            <i class="fas fa-envelope"></i>
                         </div>
-                        <h4 style="font-size: 22px; font-weight: 700; color: #0f172a; margin-bottom: 15px;">Email Us</h4>
-                        <p style="color: #64748b; font-size: 16px; line-height: 1.8; margin: 0;">info@medpoint.com<br>support@medpoint.com<br>appointments@medpoint.com</p>
+                        <h4>Email Us Directly</h4>
+                        <p>info@medpoint.com<br>support@medpoint.com<br>appointments@medpoint.com</p>
                     </div>
                 </div>
             </div>
@@ -934,24 +1049,24 @@ echo "<script>window.location.href ='index.php'</script>";
             <div class="row mt-5">
                 <div class="col-lg-8 mx-auto">
                     <div class="portal-card">
-                        <h3 style="font-size: 28px; font-weight: 800; color: #0f172a; margin-bottom: 30px; text-align: center;">Send Us a Message</h3>
+                        <h3>Send Us a Message</h3>
                         <form method="post">
                             <div class="row">
                                 <div class="col-md-6 mb-4">
-                                    <input type="text" name="fullname" class="form-control" placeholder="Your Full Name" required style="padding: 16px 20px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 15px;">
+                                    <input type="text" name="fullname" class="form-control" placeholder="Your Full Name" required>
                                 </div>
                                 <div class="col-md-6 mb-4">
-                                    <input type="email" name="emailid" class="form-control" placeholder="Your Email" required style="padding: 16px 20px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 15px;">
+                                    <input type="email" name="emailid" class="form-control" placeholder="Your Email Address" required>
                                 </div>
                             </div>
                             <div class="mb-4">
-                                <input type="text" name="mobileno" class="form-control" placeholder="Your Phone Number" required style="padding: 16px 20px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 15px;">
+                                <input type="text" name="mobileno" class="form-control" placeholder="Your Phone Number" required>
                             </div>
                             <div class="mb-4">
-                                <textarea name="description" class="form-control" rows="5" placeholder="Your Message" required style="padding: 16px 20px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 15px; resize: vertical;"></textarea>
+                                <textarea name="description" class="form-control" rows="5" placeholder="Your Message or Inquiry" required></textarea>
                             </div>
                             <div class="text-center">
-                                <button type="submit" name="submit" class="btn-portal" style="padding: 18px 60px;">
+                                <button type="submit" name="submit" class="btn-portal" style="padding: 16px 50px;">
                                     <i class="fas fa-paper-plane"></i> Send Message
                                 </button>
                             </div>
@@ -962,7 +1077,6 @@ echo "<script>window.location.href ='index.php'</script>";
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="footer-wrap">
         <div class="container">
             <p>© 2025 MedPoint - Doctor Appointment Management System. All Rights Reserved.</p>
@@ -990,9 +1104,13 @@ echo "<script>window.location.href ='index.php'</script>";
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    // Calculate offset for fixed header
+                    const headerHeight = document.querySelector('.header-modern').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight - 10; // 10px extra padding
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
                     });
                 }
             });
@@ -1006,9 +1124,13 @@ echo "<script>window.location.href ='index.php'</script>";
                 document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
                 
-                document.querySelectorAll('[class*="filter"]').forEach(item => {
-                    if (filter === 'all' || item.classList.contains(filter)) {
-                        item.style.display = 'block';
+                document.querySelectorAll('#galleryContainer > [class*="filter"]').forEach(item => {
+                    // Check if the item should be visible
+                    const isVisible = (filter === 'all' || item.classList.contains(filter));
+
+                    // Use display: none/block for filtering
+                    if (isVisible) {
+                        item.style.display = 'block'; 
                     } else {
                         item.style.display = 'none';
                     }
